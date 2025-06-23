@@ -4,9 +4,10 @@ import { Button, HStack, Image, Link, List, Spinner } from "@chakra-ui/react";
 
 interface Props {
   onSelectGenre: (genre: Genre) => void;
+  selectedGenre: Genre | null;
 }
 
-const GenreList = ({ onSelectGenre }: Props) => {
+const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
   const { data, isLoading, error } = useGenres();
 
   if (isLoading) return <Spinner size="xl" color="blue.500" />;
@@ -24,6 +25,7 @@ const GenreList = ({ onSelectGenre }: Props) => {
               alt={genre.name}
             />
             <Button
+              fontWeight={selectedGenre?.id === genre.id ? "bold" : "normal"}
               variant="ghost"
               as={Link}
               onClick={() => {
